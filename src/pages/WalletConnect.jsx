@@ -11,8 +11,20 @@ import img5 from '../assets/images/icon/connect-5.png'
 import img6 from '../assets/images/icon/connect-6.png'
 import img7 from '../assets/images/icon/connect-7.png'
 import img8 from '../assets/images/icon/connect-8.png'
+import { useMoralis } from "react-moralis";
+import Moralis from 'moralis'
+
+async function logOut() {
+
+    await Moralis.User.logOut();
+    
+    console.log("logged out");
+    }
 
 const WalletConnect = () => {
+    const { authenticate, isAuthenticated, user, logout } = useMoralis();
+
+    
     const [data] = useState(
         [
             {
@@ -90,6 +102,17 @@ const WalletConnect = () => {
                             <h5 className="sub-title ct style-1 pad-400">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum obcaecati dignissimos quae quo ad iste ipsum officiis deleniti asperiores sit.
                             </h5>
+                            {!user?(
+                                <div>
+                                <button onClick={authenticate}>Login</button>
+                                <p>Connected Now</p>
+                            </div>
+                            ):(
+                                <div>
+                                    <p>You Are Now Connected</p>
+                                </div>
+                            )}
+                            
                         </div>
                         <div className="col-md-12">
                             <div className="sc-box-icon-inner style-2">
